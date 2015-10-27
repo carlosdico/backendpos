@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Tickets;
+use App\Ticketlines;
+use App\Receipts;
+use Carbon\Carbon;
 
 class TicketsController extends Controller
 {
@@ -17,10 +20,41 @@ class TicketsController extends Controller
     public function index()
     {
         //
-        $tickets = Tickets::all();
-        foreach ($tickets as $ticket) {
-            echo $ticket->ID;
+        if(\Input::get('date_one')) $date_one = Carbon::createFromFormat('d/m/Y', \Input::get('date_one'));
+        else $date_one = Carbon::now()->subWeek();
+        if(\Input::get('date_two')) $date_two = Carbon::createFromFormat('d/m/Y', \Input::get('date_two'));
+        else $date_two = Carbon::now();
+
+        $i = 0;
+
+        $receipts = Receipts::where('DATENEW', '>', $date_one)
+        ->where('DATENEW', '<=', $date_two)
+        ->get();
+
+        //$receipts = Receipts::all();
+
+        $tickets_data[] = NULL;
+
+        foreach ($receipts as $receipt) {
+            
+            $date = Carbon::createFromFormat('Y-m-d H:i:s', $receipt->DATENEW);
+            $date = $date->format('d-m-Y H:i:s');
+            $tickets_data[$i]['TICKETID'] = $receipt->tickets->TICKETID;
+            $tickets_data[$i]['DATE'] = $date;
+            $tickets_data[$i]['PRICE'] = 0;
+            $tickets_data[$i]['CUSTOMER'] = $receipt->CUSTOMER;
+
+            $ticketlines = Ticketlines::where('TICKET', '=', $receipt->ID)->get();
+
+            foreach ($ticketlines as $ticketline) {
+                $tickets_data[$i]['PRICE'] = $tickets_data[$i]['PRICE'] + $ticketline->product->PRICESELL;
+            }
+
+            $tickets_data[$i]['PRICE'] =  round($tickets_data[$i]['PRICE'], 2);
+            $i++;
         }
+
+        return view('tickets', ['tickets_data' => $tickets_data, 'date_one' => $date_one->format('d/m/Y'), 'date_two' => $date_two->format('d/m/Y')]);
     }
 
     /**

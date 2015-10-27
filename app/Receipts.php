@@ -25,5 +25,11 @@ array      */
     {
         return $this->hasMany('App\Ticketlines', 'TICKET', 'ID');
     }
+    
+    public function tickets()
+    {
+        return $this->hasOne('App\Tickets', 'ID', 'ID');
+    }
+    
 
 }

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Receipts;
 
 class Tickets extends Model
 {
@@ -22,5 +23,10 @@ class Tickets extends Model
      * @var array
      */
     protected $fillable = ['ID', 'TICKETTTYPE', 'PERSON', 'CUSTOMER', 'STATUS'];
+
+    public function receipts()
+    {
+        return $this->hasone('App\Receipts', 'ID', 'ID');
+    }
 
 }

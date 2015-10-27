@@ -11,6 +11,12 @@
 |
 */
 
+use App\Http\Controllers\TicketsController;
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::any('/tickets', array('uses' => 'TicketsController@index', 'as' => 'showalltickets'));
+Route::any('/floors', array('uses' => 'FloorsController@index', 'as' => 'showallfloors'));
+
