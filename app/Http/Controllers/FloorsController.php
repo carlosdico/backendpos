@@ -18,22 +18,6 @@ class FloorsController extends Controller
     public function index()
     {
         //
-        if(\Input::get('floor')) $floor = Floors::find(\Input::get('floor'));
-        else $floor = Floors::first();
-        # code...
-        echo $floor->NAME;
-        $image = $floor->IMAGE;
-
-        $myfile = fopen("image", "w+") or die("Unable to open file!");
-        fwrite($myfile, $image);
-        fclose($myfile);
-        list($ancho, $alto, $tipo, $atributos) = getimagesize("image");
-        $type = exif_imagetype("image");
-
-        $places = Places::where('FLOOR', '=', $floor->ID)->get();
-
-        return view('floors', ['places' => $places, 'type' => $type, 'ancho' => $ancho, 'alto' => $alto]);
-
     }
 
     /**
@@ -58,14 +42,60 @@ class FloorsController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function add($floor)
+    {
+        //
+       $price = \DB::select( \DB::raw("SELECT MAX(CONVERT(ID, UNSIGNED INTEGER)) AS MAXID FROM PLACES"));
+
+       $new_table_id = $price[0]->MAXID + 1;
+       //var_dump($price);
+
+       $place = new Places;
+       $place->ID = $new_table_id;
+       $place->NAME = 'Table '.$new_table_id;
+       $place->X = 40;
+       $place->Y = 40;
+       $place->FLOOR = $floor;
+
+       $place->save();
+
+        return redirect()->route('showallfloors');
+
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
         //
+        if(\Input::get('floor')) echo "getfloor";
+        if(\Input::get('floor')) $floor = Floors::find(\Input::get('floor'));
+        else $floor = Floors::first();
+        # code...
+
+        $image = $floor->IMAGE;
+
+        $myfile = fopen("image", "w+") or die("Unable to open file!");
+        fwrite($myfile, $image);
+        fclose($myfile);
+        list($ancho, $alto, $tipo, $atributos) = getimagesize("image");
+        $type = exif_imagetype("image");
+
+        $places = Places::where('FLOOR', '=', $floor->ID)->get();
+
+        $floors = Floors::all();
+
+        return view('floors', ['floors' => $floors, 'floor_selected' => $floor->ID, 'places' => $places, 'type' => $type, 'ancho' => $ancho, 'alto' => $alto]);
+
     }
 
     /**
@@ -86,9 +116,24 @@ class FloorsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+
+        for($i=0; $i<=\Input::get('elements'); $i++){
+
+           $place = Places::find(\Input::get($i.'id'));
+
+           $place->X = \Input::get($i.'x');
+           $place->Y = \Input::get($i.'y');
+
+           $place->save();
+
+        }
+
+        return \Redirect::to('floors')->with('floor', $place->FLOOR);
+        //return redirect()->route('showallfloors');
+
     }
 
     /**

@@ -18,5 +18,10 @@ Route::get('/', function () {
 });
 
 Route::any('/tickets', array('uses' => 'TicketsController@index', 'as' => 'showalltickets'));
-Route::any('/floors', array('uses' => 'FloorsController@index', 'as' => 'showallfloors'));
+Route::get('/floors', array('uses' => 'FloorsController@show', 'as' => 'showallfloors'));
+Route::post('/floors', array('uses' => 'FloorsController@show', 'as' => 'showallfloors'));
+
+Route::post('/savefloors', array('uses' => 'FloorsController@update', 'as' => 'updatefloors'));
+Route::get('/addtable/{floor}', array('uses' => 'FloorsController@add', 'as' => 'addtable'));
+
 

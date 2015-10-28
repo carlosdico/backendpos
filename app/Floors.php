@@ -15,9 +15,12 @@ class Floors extends Model
      */
     protected $table = 'FLOORS';
 
+    protected $primaryKey = 'ID';
+
+
     /**      * The attributes that are mass assignable.      *      * @var
 array      */     
-	protected $fillable = ['ID', 'NAME'];
+	protected $fillable = ['ID', 'NAME', 'IMAGE'];
 /*
     public function ticketlines()
     {

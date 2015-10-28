@@ -11,6 +11,7 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="/statics/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+
 <script src="/statics/js/jquery-2.1.4.min.js"></script>
 
 
@@ -87,9 +88,3 @@
     </body>
 </html>
 
-	<script type="text/javascript">
-function func1() {
-  alert("This is the first.");
-}
-window.onload=init();
-	</script>

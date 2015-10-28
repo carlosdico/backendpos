@@ -15,6 +15,7 @@ class Places extends Model
      */
     protected $table = 'PLACES';
 
+    protected $primaryKey = 'ID';
     /**      * The attributes that are mass assignable.      *      * @var
 array      */     
 	protected $fillable = ['ID', 'NAME', 'X', 'Y', 'FLOOR'];

@@ -22,30 +22,48 @@
 
 <div class="col-md-2">
 
+{!! Form::open(array('url' => 'floors', 'method' => 'post')) !!}
+
+<select name="floor" onchange="this.form.submit()">
+
+@foreach ($floors as $floor)
+
+  <option name="floor" value="{{ $floor->ID }}"> {{ $floor->NAME }} </option>
+
+@endforeach
+
+</select>
+
+{!! Form::close() !!}
+
+<p>
+<a href="/addtable/{{ $floor_selected }}" class="btn btn-default btn-sm active" role="button">Add table</a>
+</p>
+
+{!! Form::open(array('url' => 'savefloors', 'method' => 'post')) !!}
+
+<?php $i = 0; ?>  
 @foreach ($places as $place)
 
 <script type="text/javascript">
 addRect('{{ $place->X }}', '{{ $place->Y }}', 130, 100, "#00FFFF");
-</script>'
+</script>
+
+    <p class="text-left">{{ $place->NAME }}
+    <input type="text" name="{{ $i }}x" id="{{ $i }}x" value="{{ $place->X }}" size="2" >
+    <input type="text" name="{{ $i }}y" id="{{ $i }}y" value="{{ $place->Y }}" size="2">
+    <input type="hidden" name="{{ $i }}id" id="{{ $i }}y" value="{{ $place->ID }}" size="2">
+    <input type="hidden" name="elements" value="{{ $i }}">
+   
+<?php $i++; ?>
 
 @endforeach
 
-  echo '<p class="text-left">'.$row['NAME'].'
-    <input type="text" name="'.$i.'x" id="'.$i.'x" value="'.$row['X'].'" size="2" >
-    <input type="text" name="'.$i.'y" id="'.$i.'y" value="'.$row['Y'].'" size="2">
-    <input type="hidden" name="'.$i.'id" id="'.$i.'y" value="'.$row['ID'].'" size="2">
+<input type="hidden" name="floor" value="{{ $place->FLOOR }}">
+<input type="submit" name="submit" value="Save">
 
-    </p>';
-    $i++;
-}
-$i--;
-echo '<input type="hidden" name="elements" value="'.$i.'">';
-echo '<input type="hidden" name="floor" value="'.$floor.'">';
+{!! Form::close() !!}
 
-
-
-<input type="submit" value="Save">
-</form>
 </div>
 </div>
 
