@@ -77,7 +77,7 @@ class FloorsController extends Controller
     public function show()
     {
         //
-        if(\Input::get('floor')) echo "getfloor";
+        if(\Input::get('floor')) echo \Input::get('floor');
         if(\Input::get('floor')) $floor = Floors::find(\Input::get('floor'));
         else $floor = Floors::first();
         # code...

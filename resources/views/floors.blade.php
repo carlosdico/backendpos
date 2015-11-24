@@ -28,7 +28,13 @@
 
 @foreach ($floors as $floor)
 
-  <option name="floor" value="{{ $floor->ID }}"> {{ $floor->NAME }} </option>
+  <option name="floor" value="{{ $floor->ID }}"
+  	@if ($floor->ID === $floor_selected) 
+  		selected 
+  	@endif
+  > {{ $floor->NAME }} 
+  	
+  </option>
 
 @endforeach
 

@@ -60,7 +60,6 @@
 <th>DATE<br>
 	<div class="input-group input-group-sm">
 
-		
 	</div>
 	{!! Form::open(array('url' => 'tickets', 'method' => 'post')) !!}
 	<div class="input-group">
@@ -98,9 +97,5 @@
 @endfor
 
 </table>
-
-
-  
-
 
 @overwrite
