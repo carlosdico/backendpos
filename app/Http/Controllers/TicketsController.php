@@ -9,6 +9,7 @@ use App\Tickets;
 use App\Ticketlines;
 use App\Receipts;
 use Carbon\Carbon;
+use PDF;
 
 class TicketsController extends Controller
 {
@@ -55,6 +56,28 @@ class TicketsController extends Controller
         }
 
         return view('tickets', ['tickets_data' => $tickets_data, 'date_one' => $date_one->format('d/m/Y'), 'date_two' => $date_two->format('d/m/Y')]);
+    }
+
+    public function invoice() 
+    {
+        $data = $this->getData();
+        $date = date('Y-m-d');
+        $invoice = "2222";
+        $view =  \View::make('ticketslist', compact('data', 'date', 'invoice'))->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        return $pdf->stream('invoice');
+    }
+ 
+    public function getData() 
+    {
+        $data =  [
+            'quantity'      => '1' ,
+            'description'   => 'some ramdom text',
+            'price'   => '500',
+            'total'     => '500'
+        ];
+        return $data;
     }
 
     /**

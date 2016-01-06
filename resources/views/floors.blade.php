@@ -1,14 +1,14 @@
-@extends('master')
+@extends('main')
 
 @section('headers')
 
     <style type="text/css">
       #container { position: relative; }
       #canvas { border: 1px solid #000; 
-        background-image: url('image');
+        background-image: url('{{ url('/') }}/image');
       }
     </style>
-	<script type="text/javascript" src="statics/js/boxes.js"></script>
+	<script type="text/javascript" src="{{ url('/') }}/statics/js/boxes.js"></script>
 
 
 @overwrite
@@ -43,7 +43,7 @@
 {!! Form::close() !!}
 
 <p>
-<a href="/addtable/{{ $floor_selected }}" class="btn btn-default btn-sm active" role="button">Add table</a>
+<a href="{{ url('/') }}/addtable/{{ $floor_selected }}" class="btn btn-default btn-sm active" role="button">Add table</a>
 </p>
 
 {!! Form::open(array('url' => 'savefloors', 'method' => 'post')) !!}
@@ -60,12 +60,13 @@ addRect('{{ $place->X }}', '{{ $place->Y }}', 130, 100, "#00FFFF");
     <input type="text" name="{{ $i }}y" id="{{ $i }}y" value="{{ $place->Y }}" size="2">
     <input type="hidden" name="{{ $i }}id" id="{{ $i }}y" value="{{ $place->ID }}" size="2">
     <input type="hidden" name="elements" value="{{ $i }}">
+  </p>
    
 <?php $i++; ?>
 
 @endforeach
 
-<input type="hidden" name="floor" value="{{ $place->FLOOR }}">
+<input type="hidden" name="floor" value="{{ $floor_selected }}">
 <input type="submit" name="submit" value="Save">
 
 {!! Form::close() !!}

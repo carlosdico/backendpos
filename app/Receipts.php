@@ -29,7 +29,12 @@ array      */
     public function tickets()
     {
         return $this->hasOne('App\Tickets', 'ID', 'ID');
-    }
-    
+    }  
+       
+    public function payments()
+    {
+        return $this->hasOne('App\Payments', 'RECEIPT', 'ID');
+    }  
+
 
 }

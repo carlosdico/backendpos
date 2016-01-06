@@ -64,7 +64,8 @@ class FloorsController extends Controller
 
        $place->save();
 
-        return redirect()->route('showallfloors');
+       return redirect()->back();
+        //return redirect()->route('showallfloors');
 
     }
 
@@ -74,12 +75,12 @@ class FloorsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
         //
-        if(\Input::get('floor')) echo \Input::get('floor');
-        if(\Input::get('floor')) $floor = Floors::find(\Input::get('floor'));
-        else $floor = Floors::first();
+        $floor = Floors::find($id);
+
+
         # code...
 
         $image = $floor->IMAGE;
@@ -109,6 +110,22 @@ class FloorsController extends Controller
         //
     }
 
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function select()
+    {
+        //
+        if(\Input::get('floor')) $floor=Floors::find(\Input::get('floor'));
+        else $floor = Floors::first();
+        return \Redirect::to('floors/'.$floor->ID);
+
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -131,8 +148,10 @@ class FloorsController extends Controller
 
         }
 
-        return \Redirect::to('floors')->with('floor', $place->FLOOR);
+        //return \Redirect::to('floors')->with('floor', $place->FLOOR);
         //return redirect()->route('showallfloors');
+        return \Redirect::to('floors/'.$place->FLOOR);
+
 
     }
 

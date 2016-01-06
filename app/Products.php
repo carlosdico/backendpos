@@ -20,9 +20,16 @@ class Products extends Model
 array      */     
 	protected $fillable = ['ID', 'REFERENCE', 'CODE', 'CODETYPE', 'NAME', 'PRICEBUY', 'PRICESELL', 'PRICESELL1', 'PRICESELL2', 'CATEGORY', 'TAXCAT', 'ATTRIBUTESET_ID', 'STOCKCOST', 'STOCKVOLUME', 'IMAGE', 'ISCOM', 'ISSCALE', 'ISKITCHEN', 'PRINTKB', 'SENDSTATUS', 'ISSERVICE', 'ATTRIBUTES', 'DISPLAY', 'ISVPRICE', 'ISVERPATRIB', 'TEXTTIP', 'WARRANTY', 'STOCKUNITS'];
 
-	/*public function ticket()
+    public function Category()
     {
-        return $this->hasOne('App\Tickets');
-    }*/
+        return $this->hasOne('App\Categories', 'ID', 'CATEGORY');
+
+    }
+
+    public function Taxes()
+    {
+        return $this->hasOne('App\Taxes', 'ID', 'TAXCAT');
+
+    }
 
 }
