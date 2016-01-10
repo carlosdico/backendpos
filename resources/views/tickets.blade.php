@@ -80,11 +80,10 @@
 </th>
 <th>CUSTOMER</th>
 <th>TOTAL</th>
+<th></th>
+
 </tr>
 
-
-
-	
 @for($i = 0; $i < sizeof($tickets_data); $i++)
 
 <tr>
@@ -92,6 +91,8 @@
 <td>{{ $tickets_data[$i]['DATE'] }} </td>
 <td>{{ $tickets_data[$i]['CUSTOMER'] }} </td>
 <td>{{ $tickets_data[$i]['PRICE'] }} <i class="glyphicon-small glyphicon-euro"></i></td>
+<td><a href="/tickets/{{ $tickets_data[$i]['ID'] }}"><i class="glyphicon glyphicon-eye-open"></i></a></td>
+
 </tr>
 
 @endfor
