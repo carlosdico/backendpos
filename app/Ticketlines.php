@@ -30,4 +30,11 @@ array      */
         return $this->belongsTo('App\Products', 'PRODUCT', 'ID');
     }
 
+    public function tax()
+    {
+        return $this->belongsTo('App\Taxes', 'TAXID', 'ID');
+    }
+
+
+
 }

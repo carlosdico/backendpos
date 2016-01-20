@@ -40,6 +40,7 @@ class TicketsController extends Controller
             
             $date = Carbon::createFromFormat('Y-m-d H:i:s', $receipt->DATENEW);
             $date = $date->format('d-m-Y H:i:s');
+            $tickets_data[$i]['ID'] = $receipt->tickets->ID;
             $tickets_data[$i]['TICKETID'] = $receipt->tickets->TICKETID;
             $tickets_data[$i]['DATE'] = $date;
             $tickets_data[$i]['PRICE'] = 0;
@@ -110,6 +111,9 @@ class TicketsController extends Controller
     public function show($id)
     {
         //
+        $receipt = Receipts::find($id);
+        return view('ticket', ['ticket_data' => $receipt]);
+
     }
 
     /**
