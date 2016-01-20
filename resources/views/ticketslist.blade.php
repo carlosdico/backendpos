@@ -1,7 +1,7 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Example 2</title>
+    <title>Unnopos-Listado</title>
     
   </head>
   <body>
@@ -9,35 +9,39 @@
     <main>
       <div id="details" class="clearfix">
         <div id="invoice">
-          <h1>INVOICE {{ $invoice }}</h1>
-          <div class="date">Date of Invoice: {{ $date }}</div>
+          <div class="date">
+                <img src="{{ url('/') }}/logo_negro.png" width="300" alt="User Image">
+          </div>
+          <h3>Listado de facturas desde {{ $date_one->format('d/m/Y') }} al {{ $date_two->format('d/m/Y') }}</h3>
+         
         </div>
       </div>
-      <table border="0" cellspacing="0" cellpadding="0">
-        <thead>
-          <tr>
-            <th class="no">#</th>
-            <th class="desc">DESCRIPTION</th>
-            <th class="unit">UNIT PRICE</th>
-            <th class="total">TOTAL</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="no">{{ $data['quantity'] }}</td>
-            <td class="desc">{{ $data['description'] }}</td>
-            <td class="unit">{{ $data['price'] }}</td>
-            <td class="total">{{ $data['total'] }} </td>
-          </tr>
- 
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="2"></td>
-            <td >TOTAL</td>
-            <td>$6,500.00</td>
-          </tr>
-        </tfoot>
+
+
+      <table class="table table-hover" width="100%" border="1" border-spacing="0">
+      <tr>
+      <th>TICKET</th>
+      <th>FECHA</th>
+      <th>CLIENTE</th>
+      <th>TOTAL</th>
+
+      </tr>
+
+      @for($i = 0; $i < sizeof($tickets_data); $i++)
+
+      <tr>
+      <td align="center">{{ $tickets_data[$i]['TICKETID'] }} </td>
+      <td align="center">{{ $tickets_data[$i]['DATE'] }} </td>
+      <td align="center">{{ $tickets_data[$i]['CUSTOMER'] }} </td>
+      <td align="center">{{ $tickets_data[$i]['PRICE'] }} €</i></td>
+
+      </tr>
+
+      @endfor
+
       </table>
+
+
+
   </body>
 </html>

@@ -46,6 +46,7 @@
 			size: 5;
 
 		} 
+
 	</style>
 
 @overwrite
@@ -80,7 +81,18 @@
 </th>
 <th>CUSTOMER</th>
 <th>TOTAL</th>
-<th></th>
+<th>
+{!! Form::open(array('url' => 'pdf', 'method' => 'post', 'target' => '_blank')) !!}
+		<input type="hidden" class="form-control" name="date_one" id="data_one" value="{{ $date_one }}" size="1">
+		<input type="hidden" class="form-control" name="date_two" id="data_two" value="{{ $date_two }}" size="1">
+		
+		<button type="submit" class="btn">
+               <i class="fa fa-file-pdf-o"></i>
+
+        </button>
+
+{!! Form::close() !!} 
+</th>
 
 </tr>
 

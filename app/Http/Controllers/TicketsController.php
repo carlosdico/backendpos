@@ -20,16 +20,17 @@ class TicketsController extends Controller
      */
     public function index()
     {
-        //
-        if(\Input::get('date_one')) $date_one = Carbon::createFromFormat('d/m/Y', \Input::get('date_one'));
+        //Y-m-d H:i:s
+        if(\Input::get('date_one')) $date_one = Carbon::createFromFormat('d/m/Y H:i:s', \Input::get('date_one')." 00:00:00");
         else $date_one = Carbon::now()->subWeek();
-        if(\Input::get('date_two')) $date_two = Carbon::createFromFormat('d/m/Y', \Input::get('date_two'));
+        if(\Input::get('date_two')) $date_two = Carbon::createFromFormat('d/m/Y H:i:s', \Input::get('date_two')." 23:59:59");
         else $date_two = Carbon::now();
 
         $i = 0;
 
         $receipts = Receipts::where('DATENEW', '>', $date_one)
         ->where('DATENEW', '<=', $date_two)
+        ->orderBy('DATENEW', 'desc')
         ->get();
 
         //$receipts = Receipts::all();
@@ -61,26 +62,47 @@ class TicketsController extends Controller
 
     public function invoice() 
     {
-        $data = $this->getData();
+
+        if(\Input::get('date_one')) $date_one = Carbon::createFromFormat('d/m/Y H:i:s', \Input::get('date_one')." 00:00:00");
+        else $date_one = Carbon::now()->subWeek();
+        if(\Input::get('date_two')) $date_two = Carbon::createFromFormat('d/m/Y H:i:s', \Input::get('date_two')." 23:59:59");
+        else $date_two = Carbon::now();
+
+        $receipts = Receipts::where('DATENEW', '>', $date_one)
+        ->where('DATENEW', '<=', $date_two)
+        ->orderBy('DATENEW', 'desc')
+        ->get();
+
+        $tickets_data[] = NULL;
+        $i = 0;
+
+        foreach ($receipts as $receipt) {
+            
+            $date = Carbon::createFromFormat('Y-m-d H:i:s', $receipt->DATENEW);
+            $date = $date->format('d-m-Y H:i:s');
+            $tickets_data[$i]['ID'] = $receipt->tickets->ID;
+            $tickets_data[$i]['TICKETID'] = $receipt->tickets->TICKETID;
+            $tickets_data[$i]['DATE'] = $date;
+            $tickets_data[$i]['PRICE'] = 0;
+            $tickets_data[$i]['CUSTOMER'] = $receipt->CUSTOMER;
+
+            $ticketlines = Ticketlines::where('TICKET', '=', $receipt->ID)->get();
+
+            foreach ($ticketlines as $ticketline) {
+                $tickets_data[$i]['PRICE'] = $tickets_data[$i]['PRICE'] + $ticketline->product->PRICESELL;
+            }
+
+            $tickets_data[$i]['PRICE'] =  round($tickets_data[$i]['PRICE'], 2);
+            $i++;
+        }
+
         $date = date('Y-m-d');
-        $invoice = "2222";
-        $view =  \View::make('ticketslist', compact('data', 'date', 'invoice'))->render();
+        $view =  \View::make('ticketslist', compact('tickets_data', 'date_one', 'date_two'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         return $pdf->stream('invoice');
     }
  
-    public function getData() 
-    {
-        $data =  [
-            'quantity'      => '1' ,
-            'description'   => 'some ramdom text',
-            'price'   => '500',
-            'total'     => '500'
-        ];
-        return $data;
-    }
-
     /**
      * Show the form for creating a new resource.
      *
