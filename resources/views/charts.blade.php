@@ -10,8 +10,13 @@ Graficos
 @overwrite
 @section('content')
 
-<div class="row">
-  <!-- DONUT CHART -->
+<div class="row row-centered">
+
+	<div class="col-md-12 col-xs-12 col-centered">
+	<h3>Not available</h3>
+
+</div>
+  <!-- DONUT CHART 
    <div class="col-md-6">
               <div class="box box-info">
                 <div class="box-header with-border">
@@ -24,11 +29,11 @@ Graficos
                 <div class="box-body">
                     <canvas id="pieChart2" style="height:250px"></canvas>
 
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
+                </div><!-- /.box-body 
+              </div><!-- /.box 
 
 	</div>
-  <!-- DONUT CHART -->
+  <!-- DONUT CHART 
   <div class="col-md-6">
               <div class="box box-info">
                 <div class="box-header with-border">
@@ -41,16 +46,14 @@ Graficos
                 <div class="box-body">
                     <canvas id="pieChart" style="height:250px"></canvas>
 
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
+                </div><!-- /.box-body 
+              </div><!-- /.box 
 	</div>
+
+	-->
 </div>
 
-@foreach ($receipts as $receipt)
 
-{{ $receipt->payments->TOTAL }}<BR>
-
-@endforeach
 
 <script>
     var buyers = document.getElementById('pieChart2').getContext('2d');
