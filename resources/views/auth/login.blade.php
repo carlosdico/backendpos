@@ -1,9 +1,13 @@
+@extends('master')
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Login</div>
+                    <div class="panel-heading" align="center">
+                        
+                        <img src="{{ url('/') }}/logo_negro.png" width="50%" alt="User Image">
+                    </div>
                     <div class="panel-body">
                         {!! Form::open(['route' => 'auth/login', 'class' => 'form']) !!}
                             <div class="form-group">

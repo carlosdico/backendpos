@@ -51,10 +51,8 @@
 
 @overwrite
 
-
 @section('content')
     
-
 <table class="table table-hover">
 <tr>
 <th>TICKET</th>

@@ -11,12 +11,17 @@
 |
 */
 
-use App\Http\Controllers\TicketsController;
+//use App\Http\Controllers\TicketsController;
 
 
 Route::get('/', function () {
     return view('main');
 });
+
+// Authentication routes...
+Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::post('auth/login', 'Auth\AuthController@postLogin');
+Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
 Route::any('/tickets', array('uses' => 'TicketsController@index', 'as' => 'showalltickets'));
 Route::get('/tickets/{id}', array('uses' => 'TicketsController@show', 'as' => 'showticket'));
@@ -40,6 +45,10 @@ Route::get('/charts', array('uses' => 'ChartsController@index', 'as' => 'showall
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', ['as' =>'auth/login', 'uses' => 'Auth\AuthController@postLogin']);
 Route::get('auth/logout', ['as' => 'auth/logout', 'uses' => 'Auth\AuthController@getLogout']);
+
+// Registration routes...
+Route::get('auth/register', 'Auth\AuthController@getRegister');
+Route::post('auth/register', 'Auth\AuthController@postRegister');
  
 Route::post('pdf', 'TicketsController@invoice');
 
