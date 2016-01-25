@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Tickets;
+use App\Taxes;
 use App\Ticketlines;
 use App\Receipts;
 use Carbon\Carbon;
@@ -33,6 +34,8 @@ class TicketsController extends Controller
         ->orderBy('DATENEW', 'desc')
         ->get();
 
+        $taxtypes = Taxes::all();
+
         //$receipts = Receipts::all();
 
         $tickets_data[] = NULL;
@@ -57,7 +60,7 @@ class TicketsController extends Controller
             $i++;
         }
 
-        return view('tickets', ['tickets_data' => $tickets_data, 'date_one' => $date_one->format('d/m/Y'), 'date_two' => $date_two->format('d/m/Y')]);
+        return view('tickets', ['taxtypes' => $taxtypes,'receipts' => $receipts, 'tickets_data' => $tickets_data, 'date_one' => $date_one->format('d/m/Y'), 'date_two' => $date_two->format('d/m/Y')]);
     }
 
     public function invoice() 

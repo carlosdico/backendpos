@@ -107,6 +107,70 @@
 
 @endfor
 
+@foreach ($receipts as $receipt)
+
+{{--*/ $total = 0 /*--}}
+
+@foreach ($taxtypes as $taxtype)
+
+{{--*/ $IVA[$taxtype->ID] = 0 /*--}}
+
+@endforeach 
+
+            
+<tr>
+<td>{{ $receipt->tickets->TICKETID }} </td>
+<td>{{ $receipt->DATENEW }} </td>
+<td>{{ $receipt->CUSTOMER }} </td>
+<td> </td>
+<td><a href="/tickets/{{ $receipt->tickets->ID }}"><i class="glyphicon glyphicon-eye-open"></i></a></td>
+
+</tr>
+
+@foreach ($receipt->ticketlines as $ticketline)
+
+<tr>
+<td></td>
+<td colspan="2">{{ $ticketline->product->NAME }} </td>
+<td>{{ round($ticketline->PRICE * ($ticketline->tax->RATE + 1), 2) }} x {{ $ticketline->UNITS }} uds </td>
+
+<td>{{ ($ticketline->UNITS * $ticketline->PRICE) * ($ticketline->tax->RATE + 1) }} <i class="glyphicon-small glyphicon-euro"></td>
+
+{{--*/ $IVA[$ticketline->tax->ID] += ($ticketline->UNITS * $ticketline->PRICE) * ($ticketline->tax->RATE)  /*--}}
+{{--*/ $total = $total + ($ticketline->UNITS * $ticketline->PRICE) * ($ticketline->tax->RATE + 1) /*--}}
+
+
+</tr>
+
+@endforeach
+
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>IVA</td>
+
+
+
+<td>{{ round($IVA[$ticketline->tax->ID], 2) }} <i class="glyphicon-small glyphicon-euro"></i></td>
+
+</tr>
+<tr>
+
+<td></td>
+<td></td>
+<td></td>
+<td>TOTAL</td>
+
+
+<td>{{ $total }} <i class="glyphicon-small glyphicon-euro"></i></td>
+
+</tr>
+
+@endforeach
+
+
+
 </table>
 
 @overwrite
