@@ -70,7 +70,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <header class="main-header">
 
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <a href="/" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini">
             <img src="{{ url('/') }}/statics/dist/img/o_white_small.png">
@@ -108,8 +108,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       Administrador
                     </p>
                   </li>
+
                   <!-- Menu Footer-->
-                  <li class="user-footer">
+                  <li class="user-header">
                     <div class="pull-left">
                       <a href="#" class="btn btn-default btn-flat">Profile</a>
                     </div>
@@ -140,6 +141,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <p>Administrador</p>
               <!-- Status -->
               <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+              <a href="/auth/logout"><i class="glyphicon glyphicon-log-out"></i> LogOut</a>
             </div>
           </div>
 
