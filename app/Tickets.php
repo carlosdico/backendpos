@@ -29,4 +29,10 @@ class Tickets extends Model
         return $this->hasone('App\Receipts', 'ID', 'ID');
     }
 
+    public function person()
+    {
+        return $this->hasone('App\People', 'ID', 'PERSON');
+    }
+
+
 }

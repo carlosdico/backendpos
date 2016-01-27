@@ -36,31 +36,7 @@ class TicketsController extends Controller
 
         $taxtypes = Taxes::all();
 
-        //$receipts = Receipts::all();
-
-        $tickets_data[] = NULL;
-
-        foreach ($receipts as $receipt) {
-            
-            $date = Carbon::createFromFormat('Y-m-d H:i:s', $receipt->DATENEW);
-            $date = $date->format('d-m-Y H:i:s');
-            $tickets_data[$i]['ID'] = $receipt->tickets->ID;
-            $tickets_data[$i]['TICKETID'] = $receipt->tickets->TICKETID;
-            $tickets_data[$i]['DATE'] = $date;
-            $tickets_data[$i]['PRICE'] = 0;
-            $tickets_data[$i]['CUSTOMER'] = $receipt->CUSTOMER;
-
-            $ticketlines = Ticketlines::where('TICKET', '=', $receipt->ID)->get();
-
-            foreach ($ticketlines as $ticketline) {
-                $tickets_data[$i]['PRICE'] = $tickets_data[$i]['PRICE'] + $ticketline->product->PRICESELL;
-            }
-
-            $tickets_data[$i]['PRICE'] =  round($tickets_data[$i]['PRICE'], 2);
-            $i++;
-        }
-
-        return view('tickets', ['taxtypes' => $taxtypes,'receipts' => $receipts, 'tickets_data' => $tickets_data, 'date_one' => $date_one->format('d/m/Y'), 'date_two' => $date_two->format('d/m/Y')]);
+        return view('tickets', ['taxtypes' => $taxtypes,'receipts' => $receipts, 'date_one' => $date_one->format('d/m/Y'), 'date_two' => $date_two->format('d/m/Y')]);
     }
 
     public function invoice() 

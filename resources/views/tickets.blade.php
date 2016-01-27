@@ -94,21 +94,9 @@
 
 </tr>
 
-@for($i = 0; $i < sizeof($tickets_data); $i++)
-
-<tr>
-<td>{{ $tickets_data[$i]['TICKETID'] }} </td>
-<td>{{ $tickets_data[$i]['DATE'] }} </td>
-<td>{{ $tickets_data[$i]['CUSTOMER'] }} </td>
-<td>{{ $tickets_data[$i]['PRICE'] }} <i class="glyphicon-small glyphicon-euro"></i></td>
-<td><a href="/tickets/{{ $tickets_data[$i]['ID'] }}"><i class="glyphicon glyphicon-eye-open"></i></a></td>
-
-</tr>
-
-@endfor
-
 @foreach ($receipts as $receipt)
 
+{{--*/ $base = 0 /*--}}
 {{--*/ $total = 0 /*--}}
 
 @foreach ($taxtypes as $taxtype)
@@ -116,14 +104,17 @@
 {{--*/ $IVA[$taxtype->ID] = 0 /*--}}
 
 @endforeach 
-
-            
+           
 <tr>
-<td>{{ $receipt->tickets->TICKETID }} </td>
-<td>{{ $receipt->DATENEW }} </td>
-<td>{{ $receipt->CUSTOMER }} </td>
-<td> </td>
-<td><a href="/tickets/{{ $receipt->tickets->ID }}"><i class="glyphicon glyphicon-eye-open"></i></a></td>
+<td bgcolor="#cdcdcd"><strong> {{ $receipt->tickets->TICKETID }} </strong></td>
+<td bgcolor="#cdcdcd"><strong> 
+
+	{{ date('d-m-Y H:m:s', strtotime($receipt->DATENEW)) }} - {{ $receipt->tickets->person->NAME }}
+
+</strong></td>
+<td bgcolor="#cdcdcd"><strong> {{ $receipt->CUSTOMER }} </strong></td>
+<td bgcolor="#cdcdcd"> </td>
+<td bgcolor="#cdcdcd"><a href="/tickets/{{ $receipt->tickets->ID }}"><i class="glyphicon glyphicon-eye-open"></i></a></td>
 
 </tr>
 
@@ -137,6 +128,7 @@
 <td>{{ ($ticketline->UNITS * $ticketline->PRICE) * ($ticketline->tax->RATE + 1) }} <i class="glyphicon-small glyphicon-euro"></td>
 
 {{--*/ $IVA[$ticketline->tax->ID] += ($ticketline->UNITS * $ticketline->PRICE) * ($ticketline->tax->RATE)  /*--}}
+{{--*/ $base = $base + ($ticketline->UNITS * $ticketline->PRICE) /*--}}
 {{--*/ $total = $total + ($ticketline->UNITS * $ticketline->PRICE) * ($ticketline->tax->RATE + 1) /*--}}
 
 
@@ -144,17 +136,36 @@
 
 @endforeach
 
+
 <tr>
 <td></td>
 <td></td>
 <td></td>
-<td>IVA</td>
+<td>BASE </td>
 
-
-
-<td>{{ round($IVA[$ticketline->tax->ID], 2) }} <i class="glyphicon-small glyphicon-euro"></i></td>
+<td>{{ round($base, 2) }} <i class="glyphicon-small glyphicon-euro"></i></td>
 
 </tr>
+
+@foreach ($taxtypes as $taxtype)
+
+@if($IVA[$taxtype->ID] != 0)
+
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>IVA {{ $taxtype->RATE * 100 }} % </td>
+
+<td>{{ round($IVA[$taxtype->ID], 2) }} <i class="glyphicon-small glyphicon-euro"></i></td>
+
+</tr>
+
+@endif
+
+@endforeach 
+
+
 <tr>
 
 <td></td>
