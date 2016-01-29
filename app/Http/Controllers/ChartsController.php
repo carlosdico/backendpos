@@ -27,7 +27,6 @@ class ChartsController extends Controller
         $date_two = Carbon::now();
 */
 
-
         $receipts = Receipts::where('DATENEW', '>', Carbon::now()->subMonth())
         ->where('DATENEW', '<=', Carbon::now())
         ->orderBy('DATENEW', 'desc')
@@ -39,8 +38,6 @@ class ChartsController extends Controller
 
             $base = 0;
             $total = 0;
-
-
 
             foreach ($receipt->ticketlines as $ticketline) {
 
@@ -57,7 +54,6 @@ class ChartsController extends Controller
                     $products_mes[$name]['units'] = $units;
                     $products_mes[$name]['name'] = $name;
                     $products_mes[$name]['color'] = self::random_color();
-
 
                 }
 
