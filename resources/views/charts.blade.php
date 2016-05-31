@@ -91,7 +91,7 @@ var pieData = [
 	@foreach ($products_semana as $product)
 	{
 		value: {{ $product['units'] }},
-		color: "{{$product['color'] }}",
+		color: "{{ $product['color'] }}",
 		label: "{{ $product['name'] }}"
 	},
 
@@ -116,7 +116,7 @@ var pieData = [
 	@foreach ($products_mes as $product)
 	{
 		value: {{ $product['units'] }},
-		color: "{{$product['color'] }}",
+		color: "{{ $product['color'] }}",
 		label: "{{ $product['name'] }}"
 	},
 

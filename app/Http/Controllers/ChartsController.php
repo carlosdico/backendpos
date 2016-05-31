@@ -41,7 +41,7 @@ class ChartsController extends Controller
 
             foreach ($receipt->ticketlines as $ticketline) {
 
-                $name = $ticketline->product->NAME;
+                $name = $ticketline->products->NAME;
                 $units = $ticketline->UNITS;
 
                 if(isset($products_mes[$name])){
@@ -76,7 +76,7 @@ class ChartsController extends Controller
 
             foreach ($receipt->ticketlines as $ticketline) {
 
-                $name = $ticketline->product->NAME;
+                $name = $ticketline->products->NAME;
                 $units = $ticketline->UNITS;
 
                 if(isset($products_semana[$name])){

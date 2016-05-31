@@ -79,9 +79,11 @@ class TicketsController extends Controller
         $view =  \View::make('ticketslist', compact('tickets_data', 'date_one', 'date_two'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
+
+        
         return $pdf->stream('invoice');
-    }
- 
+    
+} 
     /**
      * Show the form for creating a new resource.
      *

@@ -25,7 +25,7 @@ array      */
         return $this->belongsTo('App\Tickets', 'TICKET', 'ID');
     }	
 
-    public function product()
+    public function products()
     {
         return $this->belongsTo('App\Products', 'PRODUCT', 'ID');
     }

@@ -122,7 +122,8 @@
 
 <tr>
 <td></td>
-<td colspan="2">{{ $ticketline->product->NAME }} </td>
+<td colspan="2">{{ $ticketline->products->NAME }} </td>
+
 <td>{{ round($ticketline->PRICE * ($ticketline->tax->RATE + 1), 2) }} x {{ $ticketline->UNITS }} uds </td>
 
 <td>{{ ($ticketline->UNITS * $ticketline->PRICE) * ($ticketline->tax->RATE + 1) }} <i class="glyphicon-small glyphicon-euro"></td>
