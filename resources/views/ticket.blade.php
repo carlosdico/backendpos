@@ -74,21 +74,25 @@
 <td><strong>{{ $total  }} <i class="glyphicon-small glyphicon-euro"></td>
 </tr>
 
-@if($ticket_data->payments->PAYMENT == 'cash')
+@foreach ($ticket_data->payments as $payment)
+
+@if($payment->PAYMENT == 'cash')
 <tr>
 <td>Efectivo </td>
-<td>{{ $ticket_data->payments->TENDERED }} <i class="glyphicon-small glyphicon-euro"></td>
+<td>{{ $payment->TENDERED }} <i class="glyphicon-small glyphicon-euro"></td>
 </tr>
 <tr>
 <td>Devuelto </td>
-<td>{{ $ticket_data->payments->TENDERED - $total }} <i class="glyphicon-small glyphicon-euro"></td>
+<td>{{ $payment->TENDERED - $total }} <i class="glyphicon-small glyphicon-euro"></td>
 </tr>
 @else
 <tr>
-<td>{{ $ticket_data->payments->PAYMENT }} </td>
+<td>{{ $payment->PAYMENT }} </td>
 <td></td>
 </tr>
 @endif
+
+@endforeach
 
 <tr>
 <td>Subtotal: </td>

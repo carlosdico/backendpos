@@ -28,7 +28,7 @@ class ChartsController extends Controller
 */
 
         $receipts = Receipts::where('DATENEW', '>', Carbon::now()->subMonth())
-        ->where('DATENEW', '<=', Carbon::now())
+        ->where('DATENEW', '<=', Carbon::now()->addDay())
         ->orderBy('DATENEW', 'desc')
         ->get();
 
@@ -61,7 +61,7 @@ class ChartsController extends Controller
         }
 
         $receipts = Receipts::where('DATENEW', '>', Carbon::now()->subWeek())
-        ->where('DATENEW', '<=', Carbon::now())
+        ->where('DATENEW', '<=', Carbon::now()->addDay())
         ->orderBy('DATENEW', 'desc')
         ->get();
 
