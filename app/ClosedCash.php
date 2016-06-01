@@ -10,7 +10,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class CloseCash extends Model implements AuthenticatableContract,
+class ClosedCash extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
                                     CanResetPasswordContract
 {
@@ -21,19 +21,19 @@ class CloseCash extends Model implements AuthenticatableContract,
      *
      * @var string
      */
-    protected $table = 'CLOSECASH';
+    protected $table = 'CLOSEDCASH';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['MONEY', 'HOST', 'HOSTSEQUENCE', 'DATESTART', 'DATEEND', 'NOSALES'];
 
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token'];
+    /*protected $hidden = ['password', 'remember_token'];*/
 }

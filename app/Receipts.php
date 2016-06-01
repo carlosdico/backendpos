@@ -33,8 +33,12 @@ array      */
        
     public function payments()
     {
-        return $this->hasOne('App\Payments', 'RECEIPT', 'ID');
+        return $this->hasMany('App\Payments', 'RECEIPT', 'ID');
     }  
 
+    public function closedcash()
+    {
+        return $this->hasOne('App\ClosedCash', 'MONEY', 'MONEY');
+    }
 
 }

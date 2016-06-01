@@ -52,13 +52,10 @@
 @overwrite
 
 @section('content')
-    
-<table class="table table-hover">
-<tr>
-<th>TICKET</th>
-<th>DATE<br>
-	<div class="input-group input-group-sm">
 
+<h3>Tickets</h3> <br>
+
+<div class="input-group input-group-sm">
 	</div>
 	{!! Form::open(array('url' => 'tickets', 'method' => 'post')) !!}
 	<div class="input-group">
@@ -76,11 +73,8 @@
 	 	</div>
 	</div>
 	{!! Form::close() !!} 
-</th>
-<th>CUSTOMER</th>
-<th>TOTAL</th>
-<th>
-{!! Form::open(array('url' => 'pdf', 'method' => 'post', 'target' => '_blank')) !!}
+	<div align="right">
+	{!! Form::open(array('url' => 'ticketspdf', 'method' => 'post', 'target' => '_blank')) !!}
 		<input type="hidden" class="form-control" name="date_one" id="data_one" value="{{ $date_one }}" size="1">
 		<input type="hidden" class="form-control" name="date_two" id="data_two" value="{{ $date_two }}" size="1">
 		
@@ -89,10 +83,11 @@
 
         </button>
 
-{!! Form::close() !!} 
-</th>
+{!! Form::close() !!} 	
 
-</tr>
+	</div>
+    
+<table class="table table-hover">
 
 @foreach ($receipts as $receipt)
 
@@ -114,7 +109,10 @@
 </strong></td>
 <td bgcolor="#cdcdcd"><strong> {{ $receipt->CUSTOMER }} </strong></td>
 <td bgcolor="#cdcdcd"> </td>
-<td bgcolor="#cdcdcd"><a href="/tickets/{{ $receipt->tickets->ID }}"><i class="glyphicon glyphicon-eye-open"></i></a></td>
+<td bgcolor="#cdcdcd">
+	<a href="/tickets/{{ $receipt->tickets->ID }}"><i class="glyphicon glyphicon-eye-open"></i></a>	
+	<a href="/ticketpdf/{{ $receipt->tickets->ID }}"><i class="fa fa-file-pdf-o"></i></a>
+</td>
 
 </tr>
 
