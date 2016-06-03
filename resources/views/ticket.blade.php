@@ -11,6 +11,8 @@
 
 @section('content')
 
+<h3>Ticket - {{ $ticket_data->tickets->TICKETID }}</h3> <br>
+
 <table class="table table-hover" width="200px">
 <tr>
 <td>Ticket:</td>

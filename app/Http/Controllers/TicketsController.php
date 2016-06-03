@@ -7,10 +7,12 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Tickets;
 use App\Taxes;
+use App\Products;
 use App\Ticketlines;
 use App\Receipts;
 use Carbon\Carbon;
 use PDF;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TicketsController extends Controller
 {
@@ -63,15 +65,25 @@ class TicketsController extends Controller
             $tickets_data[$i]['TICKETID'] = $receipt->tickets->TICKETID;
             $tickets_data[$i]['DATE'] = $date;
             $tickets_data[$i]['PRICE'] = 0;
+            $tickets_data[$i]['TAXES'] = 0;
+            $tickets_data[$i]['TOTAL'] = 0;
+
+
             $tickets_data[$i]['CUSTOMER'] = $receipt->CUSTOMER;
 
             $ticketlines = Ticketlines::where('TICKET', '=', $receipt->ID)->get();
 
             foreach ($ticketlines as $ticketline) {
                 $tickets_data[$i]['PRICE'] = $tickets_data[$i]['PRICE'] + $ticketline->products->PRICESELL;
+                $tickets_data[$i]['TAXES'] = $tickets_data[$i]['PRICE'] * $ticketline->products->Taxes->RATE;
+                $tickets_data[$i]['TOTAL'] = $tickets_data[$i]['PRICE'] + $tickets_data[$i]['PRICE'] *  $ticketline->products->Taxes->RATE;
+
             }
 
             $tickets_data[$i]['PRICE'] =  round($tickets_data[$i]['PRICE'], 2);
+            $tickets_data[$i]['TAXES'] =  round($tickets_data[$i]['TAXES'], 2);
+            $tickets_data[$i]['TOTAL'] =  round($tickets_data[$i]['TOTAL'], 2);
+            
             $i++;
         }
 
@@ -79,10 +91,8 @@ class TicketsController extends Controller
         $view =  \View::make('ticketslist', compact('tickets_data', 'date_one', 'date_two'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
-
         
-        return $pdf->stream('tickets.pdf');
-    
+        return $pdf->stream('tickets.pdf');    
     } 
 
 

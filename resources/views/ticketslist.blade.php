@@ -114,37 +114,15 @@
         </div>
       </div>
 
-
-      <table class="table table-hover" width="100%" border="0" border-spacing="0">
-      <tr>
-      <th>TICKET</th>
-      <th>FECHA</th>
-      <th>CLIENTE</th>
-      <th>TOTAL</th>
-
-      </tr>
-
-      @for($i = 0; $i < sizeof($tickets_data); $i++)
-
-      <tr color="#334455">
-      <td align="center">{{ $tickets_data[$i]['TICKETID'] }} </td>
-      <td align="center">{{ $tickets_data[$i]['DATE'] }} </td>
-      <td align="center">{{ $tickets_data[$i]['CUSTOMER'] }} </td>
-      <td align="center">{{ $tickets_data[$i]['PRICE'] }} €</i></td>
-
-      </tr>
-
-      @endfor
-
-      </table>
-
       <div class="rTable">
          <div class="rTableRow">
          <div class="rTableHead"><strong>Ticket</strong></div>
          <div class="rTableHead"><strong>Fecha</strong></div>
          <div class="rTableHead"><strong>Cliente</strong></div>
+         <div class="rTableHead"><strong>Subtotal</strong></div>
+         <div class="rTableHead"><strong>IVA</strong></div>
          <div class="rTableHead"><strong>Total</strong></div>
-         <div class="rTableHead"><strong>Name</strong></div>
+
          </div>
          @for($i = 0; $i < sizeof($tickets_data); $i++)
            <div class="rTableRow">
@@ -152,7 +130,8 @@
            <div class="rTableCell">{{ $tickets_data[$i]['DATE'] }}</div>
            <div class="rTableCell">{{ $tickets_data[$i]['CUSTOMER'] }}</div>
            <div class="rTableCell">{{ $tickets_data[$i]['PRICE'] }} €</div>
-           <div class="rTableCell">John</div>
+           <div class="rTableCell">{{ $tickets_data[$i]['TAXES'] }} €</div>
+           <div class="rTableCell">{{ $tickets_data[$i]['TOTAL'] }} €</div>
            </div>
          @endfor
       </div>

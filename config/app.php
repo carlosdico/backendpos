@@ -138,6 +138,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Illuminate\Html\HtmlServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -197,7 +198,8 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
         'Form'      => 'Illuminate\Html\FormFacade',
         'HTML'      => 'Illuminate\Html\HtmlFacade',
-        'PDF' => 'Barryvdh\DomPDF\Facade',
+        'PDF' => 'Barryvdh\DomPDF\Facade',            
+        'Excel' => 'Maatwebsite\Excel\Facades\Excel',
 
     ],
 

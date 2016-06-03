@@ -60,4 +60,9 @@ Route::get('auth/logout', ['as' => 'auth/logout', 'uses' => 'Auth\AuthController
 Route::post('ticketspdf', array('middleware' => 'auth', 'uses' => 'TicketsController@ticketspdf'));
 Route::get('/ticketpdf/{receipt}', array('middleware' => 'auth', 'uses' => 'TicketsController@ticketpdf', 'as' => 'ticketpdf'));
 
+Route::any('closedcash', array('middleware' => 'auth', 'uses' => 'ClosedCashController@index'));
+Route::get('closedcash/{id}', array('middleware' => 'auth', 'uses' => 'ClosedCashController@show'));
+Route::get('closedcashdetailpdf/{id}', array('middleware' => 'auth', 'uses' => 'ClosedCashController@detailpdf'));
+
+
 

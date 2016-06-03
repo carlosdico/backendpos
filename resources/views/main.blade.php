@@ -151,6 +151,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- Optionally, you can add icons to the links -->
             <li class="active"><a href="{{ url('/') }}/charts"><i class="fa fa-link"></i> <span>Gráficos</span></a></li>
             <li class="active"><a href="{{ url('/') }}/tickets"><i class="fa fa-link"></i> <span>Tickets</span></a></li>
+            <li class="active"><a href="{{ url('/') }}/closedcash"><i class="fa fa-link"></i> <span>Cierres</span></a></li>
             
             <li class="header">INVENTARIO</li>
              <li class="active"><a href="{{ url('/') }}/products"><i class="fa fa-link"></i> <span>Productos</span></a></li>
