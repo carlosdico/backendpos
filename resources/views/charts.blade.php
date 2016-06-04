@@ -29,7 +29,7 @@ Graficos
 -->
 
 
-  <div class="col-md-6">
+  <div class="col-md-6 col-sm-12">
               <div class="box box-info">
                 <div class="box-header with-border">
                   <h3 class="box-title">Top productos Semana</h3>
@@ -45,7 +45,7 @@ Graficos
               </div> 
 	</div>
 
-  <div class="col-md-6">
+  <div class="col-md-6 col-sm-12">
               <div class="box box-info">
                 <div class="box-header with-border">
                   <h3 class="box-title">Top productos Mes</h3>

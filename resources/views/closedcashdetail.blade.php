@@ -101,6 +101,52 @@
 <table class="table table-hover">
 
 <tr>
+<th>Producto</th>
+<th>Unidades</th>
+<th>Subtotal</th>
+<th>IVA</th>
+<th>Total</th>
+<th></th>
+</tr>
+
+@foreach ($ticketline_data as $line)
+
+<tr>
+	<td> {{ $line['NAME'] }} </td>
+	<td> {{ $line['UNITS'] }} </td>
+	<td> {{ round($line['SUBTOTAL'],2) }} <i class="glyphicon-small glyphicon-euro"></i></td>
+	<td> {{ round($line['IVA'],2) }} <i class="glyphicon-small glyphicon-euro"></i></td>
+	<td> {{ round($line['TOTAL'],2) }} <i class="glyphicon-small glyphicon-euro"></i></td>
+</td>
+</tr> 
+
+@endforeach
+
+<table class="table table-hover">
+
+<tr>
+<th>Lineas eliminadas</th>
+<th>Producto</th>
+<th>Unidades</th>
+
+</tr>
+
+@foreach ($linesremoved as $line)
+
+<tr>
+	<td> {{ $line->NAME }} </td>
+	<td> {{ $line->PRODUCTNAME }} </td>
+	<td> {{ $line->UNITS }} </td>
+</tr> 
+
+@endforeach
+
+</table>
+
+
+<table class="table table-hover">
+
+<tr>
 <th>Nº Ticket</th>
 <th>Fecha</th>
 <th>Atendido por</th>

@@ -95,6 +95,8 @@ class ClosedCashController extends Controller
         $closed_data['TOTAL'] = 0;
         $people_data[] = NULL;
         $receipts_data[] = NULL;
+        
+
 
         
 
@@ -111,6 +113,9 @@ class ClosedCashController extends Controller
         ->where('REMOVEDDATE', '<=', $closedcash->DATEEND)->where('NAME', 'LIKE', '%'.$person->NAME.'%')->count();          
         }
 
+        $linesremoved = LineRemoved::where('REMOVEDDATE', '>', $closedcash->DATESTART)
+        ->where('REMOVEDDATE', '<=', $closedcash->DATEEND)->get();         
+
         foreach ($receipts as $receipt) {
 
             $receipts_data[$i]['DATE'] = $receipt->DATENEW;
@@ -123,10 +128,31 @@ class ClosedCashController extends Controller
 
             foreach ($receipt->ticketlines as $ticketline) {
 
-                $receipts_data[$i]['SUBTOTAL'] += + ($ticketline->UNITS * $ticketline->PRICE);
+                $receipts_data[$i]['SUBTOTAL'] += ($ticketline->UNITS * $ticketline->PRICE);
                 $receipts_data[$i]['IVA'] += ($ticketline->UNITS * $ticketline->PRICE) * ($ticketline->tax->RATE);
-                $receipts_data[$i]['TOTAL'] += ($ticketline->UNITS * $ticketline->PRICE) * ($ticketline->tax->RATE + 1);   
+                $receipts_data[$i]['TOTAL'] += ($ticketline->UNITS * $ticketline->PRICE) * ($ticketline->tax->RATE + 1); 
+                if(isset($ticketline_data[$ticketline->PRODUCT])){
+
+                    $ticketline_data[$ticketline->PRODUCT]['UNITS'] += $ticketline->UNITS;
+                    $ticketline_data[$ticketline->PRODUCT]['SUBTOTAL'] += ($ticketline->UNITS * $ticketline->PRICE);
+                    $ticketline_data[$ticketline->PRODUCT]['IVA'] += ($ticketline->UNITS * $ticketline->PRICE) * ($ticketline->tax->RATE);
+                    $ticketline_data[$ticketline->PRODUCT]['TOTAL'] += ($ticketline->UNITS * $ticketline->PRICE) * ($ticketline->tax->RATE + 1); 
+
+
+                } 
+                else {
+
+                    $ticketline_data[$ticketline->PRODUCT]['UNITS'] = $ticketline->UNITS;
+                    $ticketline_data[$ticketline->PRODUCT]['NAME'] = $ticketline->products->NAME;
+                    $ticketline_data[$ticketline->PRODUCT]['SUBTOTAL'] = ($ticketline->UNITS * $ticketline->PRICE);
+                    $ticketline_data[$ticketline->PRODUCT]['IVA'] = ($ticketline->UNITS * $ticketline->PRICE) * ($ticketline->tax->RATE);
+                    $ticketline_data[$ticketline->PRODUCT]['TOTAL'] = ($ticketline->UNITS * $ticketline->PRICE) * ($ticketline->tax->RATE + 1); 
+
+
+                } 
+
             }
+
             $person_data[$receipt->tickets->PERSON]['TOTAL'] += $receipts_data[$i]['TOTAL'];
             $closed_data['SUBTOTAL'] += $receipts_data[$i]['SUBTOTAL'];
             $closed_data['IVA'] += $receipts_data[$i]['IVA'];
@@ -134,7 +160,7 @@ class ClosedCashController extends Controller
             $i++;
         }
 
-        return view('closedcashdetail', ['closedcash' => $closedcash, 'taxtypes' => $taxtypes,'receipts' => $receipts, 'receipts_data' => $receipts_data, 'person_data' => $person_data, 'closed_data' => $closed_data]);
+        return view('closedcashdetail', ['closedcash' => $closedcash, 'taxtypes' => $taxtypes,'receipts' => $receipts, 'receipts_data' => $receipts_data, 'person_data' => $person_data, 'closed_data' => $closed_data, 'ticketline_data' => $ticketline_data, 'linesremoved' => $linesremoved]);
     }
 
     /**
