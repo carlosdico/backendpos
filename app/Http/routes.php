@@ -28,7 +28,7 @@ Route::get('/', function () {
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
-
+Route::get('/changepassword', array('middleware' => 'auth', 'uses' => 'UsersController@changepassword'));
 
 Route::any('/tickets', array('middleware' => 'auth', 'uses' => 'TicketsController@index', 'as' => 'showalltickets'));
 Route::get('/tickets/{id}', array('middleware' => 'auth', 'uses' => 'TicketsController@show', 'as' => 'showticket'));
@@ -63,6 +63,5 @@ Route::get('/ticketpdf/{receipt}', array('middleware' => 'auth', 'uses' => 'Tick
 Route::any('closedcash', array('middleware' => 'auth', 'uses' => 'ClosedCashController@index'));
 Route::get('closedcash/{id}', array('middleware' => 'auth', 'uses' => 'ClosedCashController@show'));
 Route::get('closedcashdetailpdf/{id}', array('middleware' => 'auth', 'uses' => 'ClosedCashController@detailpdf'));
-
 
 

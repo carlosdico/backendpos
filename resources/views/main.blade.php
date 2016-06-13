@@ -139,9 +139,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
             <div class="pull-left info">
               <p>Administrador</p>
-              <!-- Status -->
+              <!-- Status 
               <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+              -->
               <a href="/auth/logout"><i class="glyphicon glyphicon-log-out"></i> LogOut</a>
+              <a href="/changepassword"><i class="glyphicon glyphicon-lock"></i> Password</a>
+
             </div>
           </div>
 

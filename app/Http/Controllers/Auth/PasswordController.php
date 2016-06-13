@@ -30,4 +30,9 @@ class PasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
+    public changepassword()
+    {
+        return view('changepassword');
+    }
 }
