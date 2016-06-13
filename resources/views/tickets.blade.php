@@ -120,7 +120,13 @@
 
 <tr>
 <td></td>
-<td colspan="2">{{ $ticketline->products->NAME }} </td>
+<td colspan="2">
+@if(isset($ticketline->products->NAME))
+{{ $ticketline->products->NAME }}
+@else
+*** Producto desconocido ***
+@endif
+</td>
 
 <td>{{ round($ticketline->PRICE * ($ticketline->tax->RATE + 1), 2) }} x {{ $ticketline->UNITS }} uds </td>
 

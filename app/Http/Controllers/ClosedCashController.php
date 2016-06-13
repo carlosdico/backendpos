@@ -83,7 +83,7 @@ class ClosedCashController extends Controller
     public function show($id)
     {
         //
-        $closedcash = ClosedCash::where('HOSTSEQUENCE', '=', $id)->first();
+        $closedcash = ClosedCash::where('MONEY', '=', $id)->first();
 
         $receipts = Receipts::where('DATENEW', '>', $closedcash->DATESTART)
         ->where('DATENEW', '<=', $closedcash->DATEEND)
@@ -143,7 +143,8 @@ class ClosedCashController extends Controller
                 else {
 
                     $ticketline_data[$ticketline->PRODUCT]['UNITS'] = $ticketline->UNITS;
-                    $ticketline_data[$ticketline->PRODUCT]['NAME'] = $ticketline->products->NAME;
+                    if(isset($ticketline->products->NAME)) $ticketline_data[$ticketline->PRODUCT]['NAME'] = $ticketline->products->NAME;
+                    else $ticketline_data[$ticketline->PRODUCT]['NAME'] = "*** Producto desconocido ***";
                     $ticketline_data[$ticketline->PRODUCT]['SUBTOTAL'] = ($ticketline->UNITS * $ticketline->PRICE);
                     $ticketline_data[$ticketline->PRODUCT]['IVA'] = ($ticketline->UNITS * $ticketline->PRICE) * ($ticketline->tax->RATE);
                     $ticketline_data[$ticketline->PRODUCT]['TOTAL'] = ($ticketline->UNITS * $ticketline->PRICE) * ($ticketline->tax->RATE + 1); 

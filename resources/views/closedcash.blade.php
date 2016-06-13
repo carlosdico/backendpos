@@ -107,7 +107,7 @@
 <td><strong> </strong></td>
 <td> </td>
 <td>
-<a href="/closedcash/{{ $closedcash->HOSTSEQUENCE }}"><i class="glyphicon glyphicon-eye-open"></i></a>	
+<a href="/closedcash/{{ $closedcash->MONEY }}"><i class="glyphicon glyphicon-eye-open"></i></a>	
 </td>
 
 </tr>
