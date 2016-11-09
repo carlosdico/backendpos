@@ -7,7 +7,7 @@ function Box() {
 }
 
 
-function addRect(x, y, w, h, fill) {
+function addRect(x, y, w, h, fill, name) {
   var rect = new Box;
   rect.x = x;
   rect.y = y;
@@ -15,11 +15,14 @@ function addRect(x, y, w, h, fill) {
   rect.h = h;
   rect.fill = fill;
   boxes.push(rect);
+  boxesnames.push(name);
+
   invalidate();
 
 }
 
-var boxes = []; 
+var boxes = [];
+var boxesnames = [];
 
 var canvas;
 var ctx;
@@ -70,7 +73,6 @@ function init() {
   canvas.onmousedown = myDown;
   canvas.onmouseup = myUp;
 
-
 }
 
 function clear(c) {
@@ -83,7 +85,7 @@ function draw() {
 
     var l = boxes.length;
     for (var i = 0; i < l; i++) {
-        drawshape(ctx, boxes[i], boxes[i].fill);
+        drawshape(ctx, boxes[i], boxes[i].fill, boxesnames[i]);
     }
 
     if (mySel != null) {
@@ -96,13 +98,16 @@ function draw() {
   }
 }
 
-function drawshape(context, shape, fill) {
+function drawshape(context, shape, fill, name) {
   context.fillStyle = fill;
   
   if (shape.x > WIDTH || shape.y > HEIGHT) return; 
   if (shape.x + shape.w < 0 || shape.y + shape.h < 0) return;
   
   context.fillRect(shape.x-50,shape.y-30,shape.w-30,shape.h-30);
+  context.fillStyle = 'black';
+  context.font="14px Verdana";
+  context.fillText(name,shape.x-30,shape.y+10);
 
 }
 
@@ -111,10 +116,11 @@ function myMove(e){
     getMouse(e);
     
     mySel.x = mx - offsetx;
-    mySel.y = my - offsety;   
-    
+    mySel.y = my - offsety;
     var elem_x = document.getElementById(boxID+"x");
     var elem_y = document.getElementById(boxID+"y");
+    var elem_name = document.getElementById(boxID+"name");
+    elem_name.style.backgroundColor = "#85e7ff";
     elem_x.value = mySel.x;
     elem_y.value = mySel.y;
     invalidate();
@@ -126,11 +132,10 @@ function myDown(e){
   clear(gctx);
   var l = boxes.length;
   for (var i = l-1; i >= 0; i--) {
-    drawshape(gctx, boxes[i], 'black');
-    
+    drawshape(gctx, boxes[i], 'black', boxesnames[i]);
     var imageData = gctx.getImageData(mx, my, 1, 1);
     var index = (mx + my * imageData.width) * 4;
-    
+
     boxID = i;
     if (imageData.data[3] > 0) {
       mySel = boxes[i];
@@ -142,7 +147,7 @@ function myDown(e){
       canvas.onmousemove = myMove;
       invalidate();
       clear(gctx);
-           
+
       return;
     }
     
@@ -156,6 +161,8 @@ function myDown(e){
 function myUp(){
   isDrag = false;
   canvas.onmousemove = null;
+  var elem_name = document.getElementById(boxID+"name");
+  elem_name.style.backgroundColor = "white";
 }
 
 function invalidate() {

@@ -143,7 +143,7 @@ class FloorsController extends Controller
 
            $place->X = \Input::get($i.'x');
            $place->Y = \Input::get($i.'y');
-
+            $place->NAME = \Input::get($i.'name');
            $place->save();
 
         }

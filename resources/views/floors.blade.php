@@ -52,15 +52,18 @@
 @foreach ($places as $place)
 
 <script type="text/javascript">
-addRect('{{ $place->X }}', '{{ $place->Y }}', 130, 100, "#00FFFF");
+addRect('{{ $place->X }}', '{{ $place->Y }}', 130, 100, "#00FFFF", '{{ $place->NAME }}');
 </script>
+        <div class="row">
+            <div class="col-xs-12">
+                <input class="form-control input-sm" style="font-size: 10px" type="text" name="{{ $i }}name" id="{{ $i }}name" value="{{ $place->NAME }}" size="5">
+            </div>
+        </div>
+        <input class="form-control input-sm" style="font-size: 10px" type="hidden" name="{{ $i }}x" id="{{ $i }}x" value="{{ $place->X }}" size="2">
+        <input class="form-control input-sm" style="font-size: 10px" type="hidden" name="{{ $i }}y" id="{{ $i }}y" value="{{ $place->Y }}" size="2">
+        <input class="form-control input-sm" type="hidden" name="{{ $i }}id" id="{{ $i }}y" value="{{ $place->ID }}" size="2">
+        <input class="form-control input-sm" type="hidden" name="elements" value="{{ $i }}">
 
-    <p class="text-left">{{ $place->NAME }}
-    <input type="text" name="{{ $i }}x" id="{{ $i }}x" value="{{ $place->X }}" size="2" >
-    <input type="text" name="{{ $i }}y" id="{{ $i }}y" value="{{ $place->Y }}" size="2">
-    <input type="hidden" name="{{ $i }}id" id="{{ $i }}y" value="{{ $place->ID }}" size="2">
-    <input type="hidden" name="elements" value="{{ $i }}">
-  </p>
    
 <?php $i++; ?>
 
