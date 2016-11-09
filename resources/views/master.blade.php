@@ -4,14 +4,14 @@
         <title>Unnopos Managment</title>
 
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="/statics/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="{{ url('/') }}/statics/bootstrap-3.3.5-dist/css/bootstrap.min.css">
 
 <!-- Optional theme -->
-<link rel="stylesheet" href="/statics/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ url('/') }}/statics/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
 
 <!-- Latest compiled and minified JavaScript -->
 
-<script src="/statics/js/jquery-2.1.4.min.js"></script>
+<script src="{{ url('/') }}/statics/js/jquery-2.1.4.min.js"></script>
 
         <style>
 
@@ -74,6 +74,6 @@
     </body>
 </html>
 
-<script src="/statics/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<script src="{{ url('/') }}/statics/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 
 
