@@ -3,7 +3,7 @@ function Box() {
   this.y = 0;
   this.w = 1; 
   this.h = 1;
-  this.fill = '#00FF44';
+  this.fill = '#FFFF44';
 }
 
 
@@ -107,7 +107,15 @@ function drawshape(context, shape, fill, name) {
   context.fillRect(shape.x-50,shape.y-30,shape.w-30,shape.h-30);
   context.fillStyle = 'black';
   context.font="14px Verdana";
-  context.fillText(name,shape.x-30,shape.y+10);
+
+  name = name.replace(/&aacute;/g, "á");
+  name = name.replace(/&eacute;/g, "é");
+  name = name.replace(/&iacute;/g, "í");
+  name = name.replace(/&oacute;/g, "ó");
+  name = name.replace(/&uacute;/g, "ú");
+  name = name.replace(/&amp;/g, "&");
+  
+  context.fillText(name,shape.x-30,shape.y+25);
 
 }
 
